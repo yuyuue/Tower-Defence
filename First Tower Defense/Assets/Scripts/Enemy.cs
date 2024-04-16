@@ -2,9 +2,14 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public Transform[] waypoints; // 移動するルートのポイント
-    private int waypointIndex = 0; // 現在のウェイポイントインデックス
+    private Transform[] waypoints; // 移動するルートのポイント
+    private int currentWaypointIndex = 0; // 現在のウェイポイントインデックス
     public float speed = 5.0f; // 移動速度
+
+    private void Start()
+    {
+        waypoints = WaypointsManager.Instance.waypoints;
+    }
 
     void Update()
     {
@@ -13,22 +18,23 @@ public class Enemy : MonoBehaviour
 
     private void Move()
     {
-        if (waypointIndex < waypoints.Length)
+        if (currentWaypointIndex < waypoints.Length)
         {
-            Transform targetWaypoint = waypoints[waypointIndex];
+            Transform targetWaypoint = waypoints[currentWaypointIndex];
             float step = speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.position, step);
 
             if (Vector3.Distance(transform.position, targetWaypoint.position) < 0.1f)
             {
                 Debug.Log("waypointIndexをインクリメント");
-                waypointIndex++;
+                currentWaypointIndex++;
             }
         }
         else
         {
             // ウェイポイントの終わりに達したときの処理
-            waypointIndex = 0; // ルートを再開するか、エネミーを非アクティブにする等
+            //waypointIndex = 0; // ルートを再開するか、エネミーを非アクティブにする等
+            speed = 0.0f;
         }
     }
 }
