@@ -1375,7 +1375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa131401a53ee60449b5bb9dda5ebe7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 1043564711204771904, guid: c741f4322c4aee6468617ff4e98d4680, type: 3}
+  enemyPrefab: {fileID: 2946954203056092852, guid: 1cd4ebe2c735ddd469e1f5cabb1ff70d, type: 3}
   timeBetweenWaves: 10
   spawnPoint: {fileID: 18945699349652213}
 --- !u!1001 &605044589
@@ -3560,7 +3560,7 @@ Transform:
   m_GameObject: {fileID: 1677328625}
   serializedVersion: 2
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4352,7 +4352,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2106648986}
   m_Layer: 0
-  m_Name: way
+  m_Name: waypoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
