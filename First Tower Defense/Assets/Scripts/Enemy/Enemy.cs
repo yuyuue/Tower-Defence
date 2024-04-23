@@ -4,7 +4,8 @@ public class Enemy : MonoBehaviour
 {
     private Transform[] waypoints; // 移動するルートのポイント
     private int currentWaypointIndex = 0; // 現在のウェイポイントインデックス
-    public float speed = 5.0f; // 移動速度
+    public virtual float speed { get; set; }// 移動速度
+    public virtual float hitpoint { get; set; }// 体力
 
     private void Start()
     {
