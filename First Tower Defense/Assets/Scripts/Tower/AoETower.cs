@@ -1,33 +1,44 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AoETower : Tower
 {
-    public LayerMask enemyLayer;  // 敵を検出するためのレイヤーマスク
+    public float explosionRadius = 3.0f; // 範囲攻撃の半径
 
-    protected override void InitializeTower()
+    protected override void FireProjectile()
     {
-        // 範囲攻撃タワー特有の初期化処理
-        Debug.Log("AoE Tower initialized.");
-    }
-
-    public override void Attack()
-    {
-        // 範囲内のすべての敵に攻撃を行うロジック
-        Collider[] enemiesInRange = Physics.OverlapSphere(transform.position, range, enemyLayer);
-        foreach (Collider enemy in enemiesInRange)
+        if (target != null)
         {
-            // ここで各敵にダメージを与える処理を呼び出す
-            Debug.Log("Attacking an enemy with AoE damage.");
+            Debug.Log("FireProjectile called");
+
+            // 弾を生成するが、弾の代わりに範囲攻撃を行う
+            Explode();
         }
     }
 
-    protected override bool CanAttack()
+    void Explode()
     {
-        // 攻撃可能かどうかを判定するロジック
-        // 範囲内に敵がいるかどうかをチェック
-        Collider[] enemiesInRange = Physics.OverlapSphere(transform.position, range, enemyLayer);
-        return enemiesInRange.Length > 0;
+        Collider[] hits = Physics.OverlapSphere(transform.position, explosionRadius);
+        foreach (Collider hit in hits)
+        {
+            if (hit.CompareTag("Enemy"))
+            {
+                Enemy enemy = hit.GetComponent<Enemy>();
+                if (enemy != null)
+                {
+                    enemy.TakeDamage(projectilePrefab.GetComponent<Projectile>().damage); // プロジェクタイルのダメージを使用
+                }
+            }
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        // 攻撃範囲の半径を示すためにギズモを描画
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, explosionRadius);
+
+        // 基底クラスの範囲も描画
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, range);
     }
 }

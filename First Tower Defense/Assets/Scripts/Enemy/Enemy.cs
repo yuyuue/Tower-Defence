@@ -27,7 +27,6 @@ public class Enemy : MonoBehaviour
 
             if (Vector3.Distance(transform.position, targetWaypoint.position) < 0.1f)
             {
-                Debug.Log("waypointIndexをインクリメント");
                 currentWaypointIndex++;
             }
         }
@@ -37,5 +36,20 @@ public class Enemy : MonoBehaviour
             //waypointIndex = 0; // ルートを再開するか、エネミーを非アクティブにする等
             speed = 0.0f;
         }
+    }
+
+    public void TakeDamage(float amount)
+    {
+        hitpoint -= amount;
+        if (hitpoint <= 0f)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        // 敵が死亡した際の処理
+        Destroy(gameObject);
     }
 }
