@@ -3,8 +3,6 @@ using UnityEngine.UI;
 
 public class TowerUpgradeButton : MonoBehaviour
 {
-    public Tower tower; // レベルアップさせたいタワー
-
     void Start()
     {
         Button button = GetComponent<Button>();
@@ -13,9 +11,9 @@ public class TowerUpgradeButton : MonoBehaviour
 
     void UpgradeTower()
     {
-        if (tower != null)
+        if (TowerSelection.selectedTower != null)
         {
-            tower.LevelUp();
+            TowerSelection.selectedTower.LevelUp();
         }
     }
 }
