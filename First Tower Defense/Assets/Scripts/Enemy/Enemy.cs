@@ -7,9 +7,13 @@ public class Enemy : MonoBehaviour
     public virtual float speed { get; set; }// 移動速度
     public virtual float hitpoint { get; set; }// 体力
 
+    public float damage = 1f; // エネミーが城に与えるダメージ
+    public Castle castle; // 城の参照
+
     private void Start()
     {
         waypoints = WaypointsManager.Instance.waypoints;
+        castle = FindObjectOfType<Castle>();
     }
 
     void Update()
@@ -51,5 +55,22 @@ public class Enemy : MonoBehaviour
     {
         // 敵が死亡した際の処理
         Destroy(gameObject);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Castle"))
+        {
+            DealDamage();
+        }
+    }
+
+    void DealDamage()
+    {
+        if (castle != null)
+        {
+            castle.TakeDamage(damage);
+            Destroy(gameObject); // ダメージを与えた後にエネミーを破壊
+        }
     }
 }
